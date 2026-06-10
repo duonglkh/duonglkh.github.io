@@ -1,0 +1,8 @@
+title: compose-theme-kit
+description: Material 3 theme tokens + typography + dark/light scheme cho Compose. Drop-in, không opinionated về màu cụ thể.
+repoUrl: https://github.com/duonglkh/compose-theme-kit
+tech:
+  - compose
+  - material3
+  - planned
+order: 4

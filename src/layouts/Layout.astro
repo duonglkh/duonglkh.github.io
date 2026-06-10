@@ -1,0 +1,61 @@
+---
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import LayoutToggle from '../components/LayoutToggle.astro';
+import Starfield from '../components/Starfield.astro';
+import { SITE_CONFIG } from '../config';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = SITE_CONFIG.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark" data-layout="cosmic">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <title>{title}</title>
+    {/* FOUC prevention — set theme + layout BEFORE first paint */}
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+          const theme = stored || (prefersLight ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', theme);
+
+          const storedLayout = localStorage.getItem('layout');
+          const layout = storedLayout || 'cosmic';
+          document.documentElement.setAttribute('data-layout', layout);
+        } catch (e) {
+          /* localStorage blocked — leave defaults */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Starfield />
+    <ThemeToggle />
+    <LayoutToggle />
+    <slot />
+  </body>
+</html>

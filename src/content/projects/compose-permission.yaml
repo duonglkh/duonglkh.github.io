@@ -1,0 +1,7 @@
+title: compose-permission
+description: '`rememberPermissionFlow(...)` wrapper cho runtime permissions — handle deny / rationale / permanent-deny gọn 1 chỗ.'
+repoUrl: https://github.com/duonglkh/compose-permission
+tech:
+  - compose
+  - planned
+order: 9

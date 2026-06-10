@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm audit *)",
+      "Bash(curl -sS -o /tmp/astro-home.html -w \"HTTP %{http_code} size %{size_download} bytes\\\\n\" http://127.0.0.1:4321/)",
+      "Bash(curl -sS -o /tmp/astro-keystatic.html -w \"HTTP %{http_code} keystatic\\\\n\" http://127.0.0.1:4321/keystatic)",
+      "Read(//tmp/**)",
+      "Bash(curl -sSL -o /Volumes/DATA/Setup/profile/hidev.github.io/public/avatar.png \"https://github.com/duonglkh.png?size=480\")",
+      "Bash(curl -sS -o /tmp/astro-home.html -w \"HTTP %{http_code} size %{size_download}\\\\n\" http://127.0.0.1:4321/)",
+      "WebFetch(domain:hueanmy.github.io)",
+      "Bash(curl -sS http://127.0.0.1:4321/)",
+      "Read(//Volumes/DATA/CEM/**)",
+      "Read(//Users/duonglkh/.ssh/**)",
+      "Bash(ssh-add -l)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  platform: string;
+  demoUrl?: string;
+  installUrl?: string;
+  repoUrl?: string;
+  installs?: number;
+}
+
+const { title, description, platform, demoUrl, installUrl, repoUrl, installs } =
+  Astro.props;
+---
+
+<article class="card">
+  <span class="tag">{platform}</span>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <div class="meta">
+    {demoUrl && <a href={demoUrl}>Live demo &rarr;</a>}
+    {installUrl && <a href={installUrl}>Install</a>}
+    {repoUrl && <a href={repoUrl}>Source</a>}
+    {installs != null && <span>{installs.toLocaleString()} installs</span>}
+  </div>
+</article>

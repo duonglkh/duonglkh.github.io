@@ -1,0 +1,8 @@
+title: datastore-prefs-kit
+description: Type-safe DataStore prefs DSL — `prefsKey<String>("theme", default = "dark")`. Bỏ boilerplate Preferences.
+repoUrl: https://github.com/duonglkh/datastore-prefs-kit
+tech:
+  - kotlin
+  - datastore
+  - planned
+order: 11

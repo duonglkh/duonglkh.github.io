@@ -1,0 +1,8 @@
+title: compose-settings
+description: '`SettingsScreen(sections)` DataStore-backed. Switch, slider, single-choice, navigation row — đủ block xây màn Settings tử tế trong 5 phút.'
+repoUrl: https://github.com/duonglkh/compose-settings
+tech:
+  - compose
+  - datastore
+  - planned
+order: 7

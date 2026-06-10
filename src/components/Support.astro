@@ -1,0 +1,175 @@
+---
+import { SUPPORT_LINKS } from '../config';
+---
+
+<section class="support-inner">
+  <h2>Sponsor my work</h2>
+  <p class="intro">
+    If something I built has helped you, a small contribution keeps things going.
+  </p>
+
+  <div class="channel-row">
+    <article class="channel">
+      <div class="channel-head">
+        <h3>GitHub Sponsors</h3>
+        <span class="audience">Intl</span>
+      </div>
+      <p>One-time / monthly via Open Source Collective.</p>
+      <a class="cta" href={SUPPORT_LINKS.githubSponsors}>
+        Sponsor &rarr;
+      </a>
+    </article>
+
+    <article class="channel">
+      <div class="channel-head">
+        <h3>MoMo</h3>
+        <span class="audience">VN</span>
+      </div>
+      <p>Quét QR bằng app MoMo, không phí.</p>
+      <details class="qr-reveal">
+        <summary>QR</summary>
+        <img src={SUPPORT_LINKS.momoQR} alt="MoMo QR code" class="qr" />
+      </details>
+    </article>
+
+    <article class="channel">
+      <div class="channel-head">
+        <h3>VietQR</h3>
+        <span class="audience">VN</span>
+      </div>
+      <p>Chuyển khoản qua app ngân hàng hỗ trợ VietQR.</p>
+      <details class="qr-reveal">
+        <summary>QR</summary>
+        <img src={SUPPORT_LINKS.vietQR} alt="VietQR code" class="qr" />
+      </details>
+    </article>
+  </div>
+
+  <p class="thanks">Thank you &mdash; it really means a lot.</p>
+</section>
+
+<style>
+  .intro {
+    color: var(--fg-dim);
+    margin-bottom: 1rem;
+    max-width: 34rem;
+    font-size: 0.9rem;
+  }
+
+  .channel-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+  }
+
+  .channel {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem;
+    transition: border-color 150ms ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .channel:hover {
+    border-color: var(--accent);
+  }
+
+  .channel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .channel h3 {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  .audience {
+    font-size: 0.6rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    padding: 0.08rem 0.4rem;
+    background: var(--accent-soft);
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .channel p {
+    color: var(--fg-dim);
+    font-size: 0.75rem;
+    line-height: 1.45;
+    margin-bottom: 0.6rem;
+    flex: 1;
+  }
+
+  .cta,
+  .qr-reveal summary {
+    display: inline-block;
+    padding: 0.4rem 0.7rem;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 5px;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: background 150ms ease;
+    align-self: flex-start;
+  }
+
+  .qr-reveal summary {
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .cta:hover,
+  .qr-reveal summary:hover {
+    background: rgba(94, 234, 212, 0.16);
+    color: var(--accent-hover);
+  }
+
+  .qr-reveal summary::-webkit-details-marker { display: none; }
+  .qr-reveal summary::after {
+    content: ' ↓';
+    font-size: 0.85em;
+    opacity: 0.7;
+  }
+  .qr-reveal[open] summary::after { content: ' ↑'; }
+
+  .qr {
+    display: block;
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    margin-top: 0.6rem;
+    border-radius: 6px;
+    background: #fff;
+    padding: 6px;
+    object-fit: contain;
+  }
+
+  .thanks {
+    color: var(--fg-muted);
+    font-style: italic;
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .channel-row {
+      grid-template-columns: 1fr;
+    }
+    .channel-head {
+      align-items: baseline;
+    }
+  }
+</style>

@@ -1,0 +1,8 @@
+title: android-versioncat-stack
+description: Version catalog `libs.versions.toml` đã curate sẵn cho dự án Android Compose hiện đại (Compose BOM, Hilt, Coroutines, Coil, Retrofit).
+repoUrl: https://github.com/duonglkh/android-versioncat-stack
+tech:
+  - gradle
+  - catalog
+  - planned
+order: 3

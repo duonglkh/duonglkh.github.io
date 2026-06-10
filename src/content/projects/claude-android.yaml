@@ -1,0 +1,10 @@
+title: claude-android
+description: MCP server + Claude Code skills toolkit cho Android codebases. Expose Gradle / Manifest / Strings / R8 / Lint context cho Claude, kèm skills `agp-upgrade`, `r8-audit`, `string-sync`.
+repoUrl: https://github.com/duonglkh/claude-android
+tech:
+  - typescript
+  - mcp
+  - claude-code
+  - planned
+featured: true
+order: 0

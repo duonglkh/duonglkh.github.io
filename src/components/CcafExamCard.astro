@@ -1,0 +1,162 @@
+---
+const EXAM = {
+  badge: 'EXAM PREP',
+  code: 'CCA-F',
+  title: 'Claude Certified Associate · Foundations',
+  tagline: 'Lộ trình ôn — scenario-based, không phải trivia',
+  meta: [
+    { k: 'Format', v: '60 questions · 120 minutes' },
+    { k: 'Pass', v: '720 / 1000' },
+    { k: 'Fee', v: '$99' },
+  ],
+  cta: { label: 'Xem lộ trình', href: '/cca-f/' },
+};
+---
+
+<a class="exam-card" href={EXAM.cta.href}>
+  <div class="exam-head">
+    <span class="badge">{EXAM.badge}</span>
+    <span class="code">{EXAM.code}</span>
+  </div>
+  <h3 class="title">{EXAM.title}</h3>
+  <p class="tagline">{EXAM.tagline}</p>
+  <dl class="meta">
+    {EXAM.meta.map((m) => (
+      <div class="meta-row">
+        <dt>{m.k}</dt>
+        <dd>{m.v}</dd>
+      </div>
+    ))}
+  </dl>
+  <span class="cta">{EXAM.cta.label} &rarr;</span>
+</a>
+
+<style>
+  .exam-card {
+    display: block;
+    background: linear-gradient(180deg, var(--bg-raised), var(--card-tint));
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.6rem;
+    color: inherit;
+    transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exam-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle 280px at 90% 10%, rgba(167, 139, 250, 0.18), transparent 70%),
+      radial-gradient(circle 200px at 15% 95%, rgba(94, 234, 212, 0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .exam-card:hover {
+    border-color: rgba(244, 114, 182, 0.55);
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px rgba(244, 114, 182, 0.18),
+      0 12px 40px rgba(167, 139, 250, 0.12);
+  }
+
+  .exam-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+    position: relative;
+  }
+
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--accent-3);
+    border: 1px solid var(--accent-3);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .code {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    letter-spacing: 0.18em;
+  }
+
+  .title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 0.5rem;
+    position: relative;
+    background: linear-gradient(135deg, #5eead4 0%, #a78bfa 50%, #f472b6 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .tagline {
+    color: var(--fg-dim);
+    font-size: 0.92rem;
+    margin: 0 0 1.2rem;
+    position: relative;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    margin: 0 0 1.3rem;
+    padding: 0;
+    position: relative;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.55rem 0.7rem;
+    background: rgba(2, 3, 10, 0.4);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .meta-row dt {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fg-muted);
+    margin: 0;
+  }
+
+  .meta-row dd {
+    color: var(--fg);
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .cta {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    position: relative;
+  }
+
+  @media (max-width: 520px) {
+    .meta {
+      grid-template-columns: 1fr;
+    }
+    .title {
+      font-size: 1.15rem;
+    }
+  }
+</style>

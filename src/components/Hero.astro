@@ -1,0 +1,370 @@
+---
+import { PERSONAL_INFO, SOCIAL_LINKS } from '../config';
+
+const ORBIT_TEXT = 'HIDEV · HUNG DUONG · HÀ NỘI · BUILDS WITH AI · SINCE 2014 · ';
+// Repeat so the text loop fills the full circumference at the chosen font-size
+const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
+---
+
+<header class="hero">
+  <div class="status">
+    <span class="pulse"></span>
+    <span>Exploring AI · applying Claude to dev tools</span>
+  </div>
+
+  <div class="hero-head">
+    <div class="avatar-wrap">
+      <svg class="orbit-svg" viewBox="0 0 240 240" aria-hidden="true">
+        <defs>
+          <path
+            id="orbit-text-path"
+            d="M 120,22 A 98,98 0 1,1 119.99,22"
+            fill="none"
+          />
+        </defs>
+        <circle
+          class="orbit-inner-ring"
+          cx="120"
+          cy="120"
+          r="72"
+          fill="none"
+          stroke-width="0.9"
+          stroke-dasharray="2 5"
+        />
+        <circle class="orbit-planet" cx="120" cy="48" r="2.8" />
+        <text class="orbit-text">
+          <textPath href="#orbit-text-path" startOffset="0">
+            {orbitLoop}
+          </textPath>
+        </text>
+      </svg>
+      <img
+        src={PERSONAL_INFO.avatarUrl}
+        alt={`${PERSONAL_INFO.name} avatar`}
+        class="avatar"
+        width="72"
+        height="72"
+      />
+    </div>
+    <h1 class="name">{PERSONAL_INFO.name} <span class="bell">🔔</span></h1>
+  </div>
+
+  <p class="role">
+    {PERSONAL_INFO.role}
+  </p>
+
+  <p class="tagline" set:html={PERSONAL_INFO.tagline}></p>
+
+  <nav class="socials" aria-label="social links">
+    <a href={SOCIAL_LINKS.github}>GitHub</a>
+    <a href={SOCIAL_LINKS.linkedin}>LinkedIn</a>
+    <a href={SOCIAL_LINKS.tiktok}>TikTok</a>
+    <a href={SOCIAL_LINKS.facebook}>Facebook</a>
+    <a href={SOCIAL_LINKS.youtube}>YouTube</a>
+    <a href="#support">Sponsor</a>
+  </nav>
+</header>
+
+<style>
+  .hero {
+    margin-bottom: 4.5rem;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.3rem 0.8rem 0.3rem 0.7rem;
+    background: var(--card-tint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    color: var(--fg-dim);
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 10px #4ade80;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.45;
+      transform: scale(0.85);
+    }
+  }
+
+  .hero-head {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+    padding: 2px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    background-size: 200% 200%;
+    box-shadow:
+      0 0 30px var(--avatar-glow-1),
+      0 0 70px var(--avatar-glow-2);
+    animation: orbit-glow 8s ease-in-out infinite;
+  }
+
+  /* === Orbital text — the signature element ===
+     SVG carrying name + identity text along a circular path,
+     spinning slowly. Inner dashed ring + planet dot give depth. */
+  .orbit-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    pointer-events: none;
+    overflow: visible;
+    transform-origin: center;
+    animation: orbit-spin 40s linear infinite;
+    transition: animation-duration 300ms ease;
+  }
+  .avatar-wrap:hover .orbit-svg {
+    animation-duration: 12s;
+  }
+
+  .orbit-text {
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+    fill: var(--accent);
+    filter: drop-shadow(0 0 4px rgba(94, 234, 212, 0.6));
+  }
+
+  .orbit-inner-ring {
+    stroke: var(--ring-color-soft);
+    opacity: 0.55;
+  }
+
+  .orbit-planet {
+    fill: var(--accent-2);
+    filter: drop-shadow(0 0 4px var(--accent-2));
+  }
+
+  @keyframes orbit-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes orbit-glow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .avatar-wrap,
+    .orbit-svg { animation: none; }
+  }
+
+  .avatar {
+    display: block;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    position: relative;
+    z-index: 1;
+  }
+
+  .name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    background: var(--gradient-accent);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 16px rgba(167, 139, 250, 0.35));
+    animation: galaxy-shift 9s ease-in-out infinite;
+  }
+
+  @keyframes galaxy-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .name { animation: none; }
+  }
+
+  .bell {
+    display: inline-block;
+    color: #ffd166;
+    -webkit-text-fill-color: #ffd166;
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    font-size: 0.65em;
+    margin-left: 0.2em;
+    transform-origin: top center;
+    animation: bell-ring 3s ease-in-out infinite;
+  }
+
+  @keyframes bell-ring {
+    0%, 70%, 100% { transform: rotate(0deg); }
+    75% { transform: rotate(14deg); }
+    80% { transform: rotate(-12deg); }
+    85% { transform: rotate(8deg); }
+    90% { transform: rotate(-6deg); }
+    95% { transform: rotate(0deg); }
+  }
+
+  .role {
+    font-size: 0.92rem;
+    color: var(--fg-dim);
+    font-family: var(--font-mono);
+    margin: 0 0 1rem;
+    letter-spacing: -0.005em;
+  }
+
+  .tagline {
+    color: var(--fg-dim);
+    font-size: 1.05rem;
+    max-width: 36rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tagline strong {
+    color: var(--fg);
+    font-weight: 600;
+    background: var(--gradient-accent);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 520px) {
+    .name {
+      font-size: 2rem;
+    }
+    .avatar,
+    .avatar-wrap {
+      width: 60px;
+      height: 60px;
+    }
+    .avatar {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  /* ============================================================
+     COSMIC LAYOUT: center everything, bigger avatar, bigger rings
+     ============================================================ */
+
+  :global(:root[data-layout='cosmic']) .hero {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5.5rem;
+  }
+
+  :global(:root[data-layout='cosmic']) .hero-head {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  :global(:root[data-layout='cosmic']) .avatar,
+  :global(:root[data-layout='cosmic']) .avatar-wrap {
+    width: 96px;
+    height: 96px;
+  }
+  :global(:root[data-layout='cosmic']) .avatar {
+    width: 92px;
+    height: 92px;
+  }
+
+  :global(:root[data-layout='cosmic']) .orbit-svg {
+    width: 260px;
+    height: 260px;
+    margin-top: -130px;
+    margin-left: -130px;
+  }
+  :global(:root[data-layout='cosmic']) .orbit-text {
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
+  }
+
+  :global(:root[data-layout='cosmic']) .name {
+    font-size: 2.85rem;
+  }
+
+  :global(:root[data-layout='cosmic']) .tagline {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  :global(:root[data-layout='cosmic']) .socials {
+    justify-content: center;
+  }
+
+  @media (max-width: 520px) {
+    :global(:root[data-layout='cosmic']) .name {
+      font-size: 1.85rem;
+    }
+    :global(:root[data-layout='cosmic']) .avatar,
+    :global(:root[data-layout='cosmic']) .avatar-wrap {
+      width: 78px;
+      height: 78px;
+    }
+    :global(:root[data-layout='cosmic']) .avatar {
+      width: 74px;
+      height: 74px;
+    }
+    :global(:root[data-layout='cosmic']) .orbit-svg {
+      width: 210px;
+      height: 210px;
+      margin-top: -105px;
+      margin-left: -105px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .orbit-svg {
+      width: 170px;
+      height: 170px;
+      margin-top: -85px;
+      margin-left: -85px;
+    }
+    .orbit-text { font-size: 7.5px; letter-spacing: 0.22em; }
+  }
+</style>

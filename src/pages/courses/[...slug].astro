@@ -1,0 +1,354 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { SITE_CONFIG } from '../../config';
+
+export async function getStaticPaths() {
+  const courses = await getCollection('courses');
+  return courses.map((course) => ({
+    params: { slug: course.id },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props;
+const { Content } = await render(course);
+const d = course.data;
+const dateStr = d.date
+  ? d.date.toISOString().slice(0, 10)
+  : undefined;
+---
+
+<Layout title={`${d.title} — ${SITE_CONFIG.title}`} description={d.description}>
+  <main class="course-main">
+    <a class="back" href="/#courses">&larr; Back</a>
+
+    <header class="hero">
+      {d.tagline && <p class="tagline">{d.tagline}</p>}
+      <h1>{d.title}</h1>
+      <p class="lead">{d.description}</p>
+      {
+        d.courseUrl && (
+          <p class="ref">
+            Based on{' '}
+            <a href={d.courseUrl} target="_blank" rel="noopener">
+              {d.courseUrl.replace(/^https?:\/\//, '')} &rarr;
+            </a>
+          </p>
+        )
+      }
+      <div class="meta">
+        {dateStr && <span>{dateStr}</span>}
+        {d.duration && <span>{d.duration}</span>}
+        {d.tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+    </header>
+
+    {
+      d.paid && (
+        <aside class="buy-cta">
+          <div class="buy-text">
+            <span class="buy-label">Khóa học có phí</span>
+            {d.price && <span class="buy-price">{d.price}</span>}
+          </div>
+          {d.buyUrl ? (
+            <a class="buy-btn" href={d.buyUrl} target="_blank" rel="noopener">
+              Mua khóa học &rarr;
+            </a>
+          ) : (
+            <span class="buy-btn disabled">Sắp mở bán</span>
+          )}
+        </aside>
+      )
+    }
+
+    {
+      d.video && (
+        <figure class="video-wrap">
+          <video
+            src={d.video}
+            controls
+            playsinline
+            preload="metadata"
+            poster={d.thumbnail}
+          />
+          {d.videoFull && d.videoFull !== d.video && (
+            <figcaption>
+              <a href={d.videoFull}>Watch full-length version &rarr;</a>
+            </figcaption>
+          )}
+        </figure>
+      )
+    }
+
+    {
+      d.demoUrl && !d.video && (
+        <p class="demo-link">
+          <a href={d.demoUrl} target="_blank" rel="noopener">
+            ▶ Mở interactive demo &rarr;
+          </a>
+        </p>
+      )
+    }
+
+    <section class="prose">
+      <Content />
+    </section>
+
+    {
+      d.sourceFiles.length > 0 && d.sourceDir && (
+        <section class="source">
+          <h2>Source</h2>
+          <ul>
+            {d.sourceFiles.map((f) => {
+              const isHtml = f.toLowerCase().endsWith('.html');
+              const href = `${d.sourceDir}/${f}`;
+              return (
+                <li>
+                  {isHtml ? (
+                    <a href={href} target="_blank" rel="noopener" class="view">
+                      {f} ↗
+                    </a>
+                  ) : (
+                    <a href={href} download>{f}</a>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          {d.repoUrl && (
+            <p>
+              <a href={d.repoUrl}>View on GitHub &rarr;</a>
+            </p>
+          )}
+        </section>
+      )
+    }
+  </main>
+</Layout>
+
+<style>
+  .course-main {
+    max-width: 760px;
+  }
+  .back {
+    display: inline-block;
+    font-size: 0.82rem;
+    color: var(--fg-dim);
+    margin-bottom: 2rem;
+  }
+  .hero {
+    margin-bottom: 2rem;
+  }
+  .tagline {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .lead {
+    color: var(--fg-dim);
+    font-size: 1.02rem;
+    line-height: 1.55;
+  }
+  .ref {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    align-items: center;
+  }
+  .buy-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 1.75rem 0 0.5rem;
+    padding: 1rem 1.15rem;
+    background: linear-gradient(180deg, var(--bg-raised), rgba(16, 20, 29, 0.6));
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    box-shadow: 0 0 0 1px rgba(94, 234, 212, 0.1), 0 8px 30px rgba(94, 234, 212, 0.08);
+  }
+  .buy-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .buy-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fg-muted);
+  }
+  .buy-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: var(--gradient-accent);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .buy-btn {
+    display: inline-block;
+    padding: 0.7rem 1.2rem;
+    background: var(--gradient-accent);
+    color: #07090e;
+    font-weight: 600;
+    border-radius: var(--radius);
+    font-size: 0.92rem;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+    white-space: nowrap;
+  }
+  .buy-btn:hover {
+    color: #07090e;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(94, 234, 212, 0.3);
+  }
+  .buy-btn.disabled {
+    background: var(--bg-raised);
+    color: var(--fg-muted);
+    border: 1px solid var(--border);
+    cursor: not-allowed;
+  }
+  @media (max-width: 520px) {
+    .buy-cta {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+  }
+  .video-wrap {
+    margin: 2rem 0 2.5rem;
+    text-align: center;
+  }
+  .video-wrap video {
+    max-width: 360px;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: var(--radius);
+    background: #000;
+    border: 1px solid var(--border);
+  }
+  .video-wrap figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+  }
+  .demo-link {
+    margin: 1.5rem 0 2rem;
+  }
+  .demo-link a {
+    display: inline-block;
+    padding: 0.65rem 1.1rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    background: var(--accent-soft);
+  }
+  .demo-link a:hover {
+    background: rgba(94, 234, 212, 0.15);
+  }
+  .prose :global(h3) {
+    font-size: 1.05rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose :global(p) {
+    color: var(--fg-dim);
+    margin-bottom: 0.85rem;
+  }
+  .prose :global(ol),
+  .prose :global(ul) {
+    color: var(--fg-dim);
+    padding-left: 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .prose :global(li) {
+    margin-bottom: 0.35rem;
+  }
+  .prose :global(strong) {
+    color: var(--fg);
+  }
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+  }
+  .prose :global(pre) {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.9rem 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  .prose :global(pre code) {
+    background: transparent;
+    color: var(--fg);
+    padding: 0;
+    font-size: 0.82rem;
+  }
+  .source {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .source h2 {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fg-dim);
+    margin-bottom: 1rem;
+  }
+  .source ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+  .source li a {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .source li a:hover {
+    border-color: var(--accent);
+  }
+  .source li a.view {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .source li a.view:hover {
+    background: rgba(94, 234, 212, 0.18);
+  }
+</style>

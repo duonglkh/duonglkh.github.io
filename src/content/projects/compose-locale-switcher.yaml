@@ -1,0 +1,8 @@
+title: compose-locale-switcher
+description: Locale picker UI + persist + restart helper cho Android app đa ngôn ngữ. Hot-swap không cần kill activity.
+repoUrl: https://github.com/duonglkh/compose-locale-switcher
+tech:
+  - compose
+  - i18n
+  - planned
+order: 6

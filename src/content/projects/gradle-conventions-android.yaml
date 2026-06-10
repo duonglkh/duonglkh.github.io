@@ -1,0 +1,8 @@
+title: gradle-conventions-android
+description: Convention plugin set cho Android — `android-app`, `android-library`, `android-compose`. Apply 1 dòng để có Kotlin + Compose + lint config chuẩn.
+repoUrl: https://github.com/duonglkh/gradle-conventions-android
+tech:
+  - gradle
+  - kotlin
+  - planned
+order: 2

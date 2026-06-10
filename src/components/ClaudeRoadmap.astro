@@ -1,0 +1,243 @@
+---
+const phases = [
+  { num: '01', label: 'Foundation', title: 'Understand Claude', color: 'cyan' },
+  { num: '02', label: 'Prompting', title: 'Prompt Engineering', color: 'purple' },
+  { num: '03', label: 'API', title: 'Anthropic API Integration', color: 'yellow' },
+  { num: '04', label: 'Agents', title: 'Tool Use & Agents', color: 'green' },
+  { num: '05', label: 'CLI', title: 'Claude Code CLI', color: 'cyan' },
+  { num: '06', label: 'MCP', title: 'Model Context Protocol', color: 'purple' },
+  { num: '07', label: 'Scale', title: 'Production & Scale', color: 'pink' },
+];
+---
+
+<section id="claude-roadmap" class="roadmap-section">
+  <div class="section-head">
+    <h2>Claude Dev Roadmap</h2>
+    <div class="head-actions">
+      <a class="open-full" href="https://github.com/hueanmy/claude-roadmap" target="_blank" rel="noopener">
+        Working examples on GitHub ↗
+      </a>
+      <a class="open-full" href="/claude-roadmap.html" target="_blank" rel="noopener">
+        Open full version ↗
+      </a>
+    </div>
+  </div>
+
+  <a class="roadmap-card" href="/claude-roadmap.html" target="_blank" rel="noopener">
+    <div class="card-head">
+      <span class="badge">Developer Roadmap</span>
+      <h3 class="title">Working with Claude</h3>
+      <p class="tagline">
+        Từ zero đến production — mọi thứ một developer cần biết khi làm việc với
+        Claude. 7 phases, từ foundation tới production scale.
+      </p>
+    </div>
+
+    <ol class="phases">
+      {phases.map((p) => (
+        <li class={`phase phase-${p.color}`}>
+          <span class="phase-num">{p.num}</span>
+          <span class="phase-label">{p.label}</span>
+          <span class="phase-title">{p.title}</span>
+        </li>
+      ))}
+    </ol>
+
+    <div class="cta">View full roadmap ↗</div>
+  </a>
+</section>
+
+<style>
+  .roadmap-section {
+    --rm-cyan: #00d4d4;
+    --rm-purple: #a855f7;
+    --rm-pink: #f472b6;
+    --rm-yellow: #fbbf24;
+    --rm-green: #34d399;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .head-actions {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 520px) {
+    .head-actions {
+      gap: 0.75rem;
+      font-size: 0.72rem;
+    }
+  }
+
+  .section-head h2 {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fg-dim);
+    margin: 0;
+  }
+
+  .open-full {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--rm-cyan);
+    white-space: nowrap;
+    transition: color 150ms ease;
+  }
+
+  .open-full:hover {
+    color: var(--rm-purple);
+  }
+
+  .roadmap-card {
+    display: block;
+    background: linear-gradient(180deg, var(--bg-raised), var(--card-tint));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    color: inherit;
+    transition:
+      border-color 200ms ease,
+      transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .roadmap-card:hover {
+    border-color: rgba(167, 139, 250, 0.5);
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px rgba(167, 139, 250, 0.15),
+      0 8px 30px rgba(94, 234, 212, 0.06),
+      0 2px 10px rgba(167, 139, 250, 0.08);
+  }
+
+  .card-head {
+    margin-bottom: 1.5rem;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--rm-cyan);
+    border: 1px solid var(--rm-cyan);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.15;
+    background: linear-gradient(
+      135deg,
+      var(--rm-cyan) 0%,
+      var(--rm-purple) 50%,
+      var(--rm-pink) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    color: var(--fg-dim);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .phases {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .phase {
+    display: grid;
+    grid-template-columns: auto 90px 1fr;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .phase:hover {
+    background: var(--accent-soft);
+  }
+
+  .phase-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+  }
+
+  .phase-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .phase-title {
+    color: var(--fg);
+    font-size: 0.88rem;
+  }
+
+  .phase-cyan { border-left: 2px solid var(--rm-cyan); }
+  .phase-cyan .phase-label { color: var(--rm-cyan); }
+  .phase-purple { border-left: 2px solid var(--rm-purple); }
+  .phase-purple .phase-label { color: var(--rm-purple); }
+  .phase-yellow { border-left: 2px solid var(--rm-yellow); }
+  .phase-yellow .phase-label { color: var(--rm-yellow); }
+  .phase-green { border-left: 2px solid var(--rm-green); }
+  .phase-green .phase-label { color: var(--rm-green); }
+  .phase-pink { border-left: 2px solid var(--rm-pink); }
+  .phase-pink .phase-label { color: var(--rm-pink); }
+
+  .cta {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--rm-cyan);
+    transition: color 150ms ease;
+  }
+
+  .roadmap-card:hover .cta {
+    color: var(--rm-purple);
+  }
+
+  @media (max-width: 520px) {
+    .phase {
+      grid-template-columns: auto 1fr;
+      row-gap: 0.2rem;
+    }
+    .phase-title {
+      grid-column: 1 / -1;
+      color: var(--fg-dim);
+      font-size: 0.82rem;
+    }
+  }
+</style>

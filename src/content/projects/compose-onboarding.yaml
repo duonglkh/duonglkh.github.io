@@ -1,0 +1,7 @@
+title: compose-onboarding
+description: 'Composable pager onboarding — `OnboardingPager(steps)`. Skip / next / done flow + indicator built-in.'
+repoUrl: https://github.com/duonglkh/compose-onboarding
+tech:
+  - compose
+  - planned
+order: 5

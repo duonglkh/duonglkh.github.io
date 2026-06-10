@@ -1,0 +1,8 @@
+title: android-template-docs
+description: Docs site (Astro) cho cả ecosystem — quickstart, API reference, recipes. EN + VN.
+repoUrl: https://github.com/duonglkh/android-template-docs
+tech:
+  - astro
+  - docs
+  - planned
+order: 12
