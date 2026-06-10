@@ -15,7 +15,7 @@ if (isDev) {
 }
 
 export default defineConfig({
-  site: 'https://hidev-io.github.io',
+  site: 'https://duonglkh.github.io',
   output,
   integrations: [mdx(), sitemap(), ...extraIntegrations],
 });

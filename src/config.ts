@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
   title: 'Hidev',
   description: 'Hidev (Hung Duong) — developer building tools, extensions, and open source.',
-  url: 'https://hidev-io.github.io',
+  url: 'https://duonglkh.github.io',
 };
 
 export const PERSONAL_INFO = {

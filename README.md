@@ -1,6 +1,6 @@
-# hidev-io.github.io
+# duonglkh.github.io
 
-> Source of [hidev-io.github.io](https://hidev-io.github.io) — personal site of **Hidev** (Hung Duong).
+> Source of [duonglkh.github.io](https://duonglkh.github.io) — personal site of **Hidev** (Hung Duong).
 
 Built with [Astro 5](https://astro.build) · [Keystatic](https://keystatic.com) CMS in dev · GitHub Pages deploy via Actions.
 
