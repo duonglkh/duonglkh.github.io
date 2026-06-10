@@ -1,19 +1,19 @@
 ---
 const EXAM = {
-  badge: 'EXAM PREP',
-  code: 'CCA-F',
-  title: 'Claude Certified Associate · Foundations',
-  tagline: 'Lộ trình ôn — scenario-based, không phải trivia',
+  badge: 'FREE TRACK',
+  code: 'SKILLJAR',
+  title: 'Anthropic Skilljar Track',
+  tagline: 'Lộ trình free khóa học chính thức của Anthropic — badge hoàn thành',
   meta: [
-    { k: 'Format', v: '60 questions · 120 minutes' },
-    { k: 'Pass', v: '720 / 1000' },
-    { k: 'Fee', v: '$99' },
+    { k: 'Courses', v: '6 modules' },
+    { k: 'Time', v: '~15-20h' },
+    { k: 'Cost', v: 'Free + badges' },
   ],
-  cta: { label: 'Xem lộ trình', href: '/cca-f/' },
+  cta: { label: 'Mở Skilljar', href: 'https://anthropic.skilljar.com' },
 };
 ---
 
-<a class="exam-card" href={EXAM.cta.href}>
+<a class="exam-card" href={EXAM.cta.href} target="_blank" rel="noopener">
   <div class="exam-head">
     <span class="badge">{EXAM.badge}</span>
     <span class="code">{EXAM.code}</span>
