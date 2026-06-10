@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Claude Dev Roadmap · Hidev</title>
+  <meta name="description" content="Lộ trình học Claude cho dev Việt Nam — 7 phase, từ foundation tới production. Link Anthropic docs chính thức + ghi chú tiếng Việt." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+  />
+  <style>
+    :root {
+      --bg: #02030a;
+      --bg-raised: #0a0d1d;
+      --card-tint: rgba(10, 13, 29, 0.55);
+      --border: #1f2940;
+      --fg: #e9eaf5;
+      --fg-dim: #98a2c3;
+      --fg-muted: #6b7799;
+
+      --cyan: #5eead4;
+      --purple: #a78bfa;
+      --pink: #f472b6;
+      --indigo: #818cf8;
+      --yellow: #fbbf24;
+      --green: #34d399;
+      --orange: #fb923c;
+
+      --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 60% 50% at 12% -5%, rgba(124, 58, 237, 0.35), transparent 65%),
+        radial-gradient(ellipse 55% 50% at 92% 12%, rgba(56, 189, 248, 0.22), transparent 65%),
+        radial-gradient(ellipse 65% 45% at 70% 95%, rgba(236, 72, 153, 0.18), transparent 65%);
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 5rem;
+    }
+
+    /* ===== Header ===== */
+    .back {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--fg-dim);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      margin-bottom: 2.5rem;
+      transition: color 150ms ease;
+    }
+    .back:hover { color: var(--cyan); }
+
+    .header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .header-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--cyan);
+      border: 1px solid var(--cyan);
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .header h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 50%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      margin-bottom: 0.85rem;
+    }
+
+    .header p {
+      color: var(--fg-dim);
+      font-size: 1.05rem;
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    .header .meta {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--fg-muted);
+    }
+    .header .meta a {
+      color: var(--cyan);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+    .header .meta a:hover { color: var(--pink); }
+
+    /* ===== Phase ===== */
+    .phase {
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .phase + .phase::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -2.4rem;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 1.8rem;
+      background: linear-gradient(180deg, transparent, var(--border), transparent);
+    }
+
+    .phase-card {
+      background: linear-gradient(180deg, var(--bg-raised), var(--card-tint));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 1.85rem;
+      transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+    }
+    .phase-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(167, 139, 250, 0.5);
+      box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.18), 0 8px 30px rgba(94, 234, 212, 0.06);
+    }
+
+    .phase-head {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.85rem;
+      align-items: baseline;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phase-num {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--fg-muted);
+      letter-spacing: 0.18em;
+    }
+
+    .phase-title {
+      font-size: 1.32rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--phase-color, var(--cyan));
+    }
+
+    .phase-deep {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-decoration: none;
+      color: var(--fg-muted);
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 150ms ease, color 150ms ease;
+    }
+    .phase-deep:hover {
+      border-color: var(--phase-color, var(--cyan));
+      color: var(--phase-color, var(--cyan));
+    }
+
+    .phase-tagline {
+      color: var(--fg-dim);
+      font-size: 0.92rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .topics {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.55rem;
+      list-style: none;
+    }
+
+    .topic {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(2, 3, 10, 0.45);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--phase-color, var(--cyan));
+      border-radius: 6px;
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 0.84rem;
+      transition: background 150ms ease, border-color 150ms ease, transform 100ms ease;
+    }
+    .topic:hover {
+      background: rgba(94, 234, 212, 0.06);
+      border-color: var(--phase-color, var(--cyan));
+      transform: translateX(2px);
+    }
+    .topic .arrow {
+      margin-left: auto;
+      color: var(--fg-muted);
+      font-size: 0.78rem;
+      transition: color 150ms ease;
+    }
+    .topic:hover .arrow {
+      color: var(--phase-color, var(--cyan));
+    }
+
+    /* ===== Color helpers ===== */
+    .phase-cyan { --phase-color: var(--cyan); }
+    .phase-purple { --phase-color: var(--purple); }
+    .phase-yellow { --phase-color: var(--yellow); }
+    .phase-green { --phase-color: var(--green); }
+    .phase-pink { --phase-color: var(--pink); }
+    .phase-indigo { --phase-color: var(--indigo); }
+    .phase-orange { --phase-color: var(--orange); }
+
+    /* ===== CCA-F exam track ===== */
+    .exam-track {
+      margin-bottom: 4rem;
+      position: relative;
+    }
+
+    .exam-card {
+      background: linear-gradient(180deg, var(--bg-raised), var(--card-tint));
+      border: 1px solid rgba(244, 114, 182, 0.4);
+      border-radius: 14px;
+      padding: 2rem 2.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exam-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle 320px at 92% 8%, rgba(244, 114, 182, 0.18), transparent 70%),
+        radial-gradient(circle 220px at 10% 95%, rgba(167, 139, 250, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .exam-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+      position: relative;
+    }
+
+    .exam-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--pink);
+      border: 1px solid var(--pink);
+      padding: 3px 10px;
+      border-radius: 14px;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+
+    .exam-code {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--fg-muted);
+      letter-spacing: 0.18em;
+    }
+
+    .exam-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 50%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      margin-bottom: 0.55rem;
+      position: relative;
+    }
+
+    .exam-tagline {
+      color: var(--fg-dim);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      max-width: 44rem;
+      position: relative;
+    }
+
+    .exam-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .exam-meta > div {
+      padding: 0.55rem 0.75rem;
+      background: rgba(2, 3, 10, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .exam-meta dt {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--fg-muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .exam-meta dd {
+      color: var(--fg);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .exam-plan {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .exam-plan h3 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--fg-dim);
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .exam-plan ol {
+      list-style: none;
+      counter-reset: week;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .exam-plan li {
+      counter-increment: week;
+      padding: 0.6rem 0.85rem 0.6rem 2.3rem;
+      background: rgba(2, 3, 10, 0.4);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--pink);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: var(--fg-dim);
+      position: relative;
+    }
+
+    .exam-plan li::before {
+      content: counter(week);
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--pink);
+      width: 1.2rem;
+      text-align: center;
+    }
+
+    .exam-plan li strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .exam-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 1.1rem;
+      position: relative;
+    }
+
+    .exam-link {
+      display: inline-block;
+      padding: 0.5rem 0.95rem;
+      background: rgba(2, 3, 10, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--fg-dim);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: border-color 150ms ease, color 150ms ease, transform 100ms ease;
+    }
+
+    .exam-link:hover {
+      border-color: var(--pink);
+      color: var(--fg);
+      transform: translateY(-1px);
+    }
+
+    .exam-link.primary {
+      background: linear-gradient(135deg, rgba(244, 114, 182, 0.18), rgba(167, 139, 250, 0.12));
+      border-color: var(--pink);
+      color: var(--fg);
+    }
+
+    .exam-note {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--fg-muted);
+      position: relative;
+    }
+    .exam-note a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    @media (max-width: 640px) {
+      .exam-meta { grid-template-columns: 1fr 1fr; }
+      .exam-title { font-size: 1.2rem; }
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--fg-muted);
+      line-height: 1.8;
+    }
+    .footer a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+    .footer a:hover { color: var(--pink); }
+    .footer .note {
+      max-width: 36rem;
+      margin: 0.6rem auto 0;
+      font-size: 0.7rem;
+      color: var(--fg-muted);
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 2.5rem 1.25rem 3rem; }
+      .header h1 { font-size: 1.85rem; }
+      .phase-head { grid-template-columns: 1fr; gap: 0.3rem; }
+      .phase-deep { justify-self: start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← back to hidev</a>
+
+    <header class="header">
+      <span class="header-badge">Developer Roadmap</span>
+      <h1>Claude Dev Roadmap</h1>
+      <p>
+        Lộ trình học Claude từ <em>zero</em> tới <em>production</em> — 7 phase, link
+        thẳng vào Anthropic docs + ghi chú tiếng Việt cho từng concept.
+      </p>
+      <div class="meta">
+        <a href="https://github.com/duonglkh/claude-roadmap-vn" target="_blank" rel="noopener">📂 Open repo (claude-roadmap-vn)</a>
+        <a href="https://docs.claude.com" target="_blank" rel="noopener">📖 Anthropic docs</a>
+      </div>
+    </header>
+
+    <!-- ===== CCA-F Exam Prep (special track) ===== -->
+    <section class="exam-track" id="cca-f">
+      <div class="exam-card">
+        <div class="exam-head">
+          <span class="exam-badge">EXAM PREP</span>
+          <span class="exam-code">CCA-F</span>
+        </div>
+        <h2 class="exam-title">Claude Certified Associate · Foundations</h2>
+        <p class="exam-tagline">
+          Lộ trình ôn cho cert nền tảng của Anthropic — scenario-based, không phải trivia. Cover 7 phase bên dưới + tập trung đậm phase 1-3.
+        </p>
+
+        <dl class="exam-meta">
+          <div><dt>Format</dt><dd>60 questions · 120 min</dd></div>
+          <div><dt>Pass score</dt><dd>720 / 1000</dd></div>
+          <div><dt>Fee</dt><dd>$99 USD</dd></div>
+          <div><dt>Recert</dt><dd>2 years</dd></div>
+        </dl>
+
+        <div class="exam-plan">
+          <h3>4-tuần study plan (~30h tổng)</h3>
+          <ol>
+            <li><strong>Tuần 1 — Foundations + Prompting</strong>: Phase 1 + Phase 2 (8-10h). Học interactive tutorial của Anthropic.</li>
+            <li><strong>Tuần 2 — API + Tools</strong>: Phase 3 + Phase 4 (8-10h). Tự code 3-5 example calling Messages API + 1 tool-use agent.</li>
+            <li><strong>Tuần 3 — Claude Code + MCP</strong>: Phase 5 + Phase 6 (6-8h). Cài Claude Code thực dùng + thử 1 MCP server.</li>
+            <li><strong>Tuần 4 — Production + Mock test</strong>: Phase 7 + practice questions (4-6h). Review điểm yếu.</li>
+          </ol>
+        </div>
+
+        <div class="exam-links">
+          <a class="exam-link primary" href="https://anthropic.skilljar.com" target="_blank" rel="noopener">
+            🎓 Anthropic free courses (Skilljar)
+          </a>
+          <a class="exam-link" href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank" rel="noopener">
+            📓 Prompt engineering tutorial
+          </a>
+          <a class="exam-link" href="https://docs.claude.com" target="_blank" rel="noopener">
+            📖 Official docs
+          </a>
+        </div>
+
+        <p class="exam-note">
+          ⚠️ Lịch thi + chi tiết format có thể thay đổi — verify ở
+          <a href="https://www.anthropic.com" target="_blank" rel="noopener">anthropic.com</a>
+          trước khi đăng ký.
+        </p>
+      </div>
+    </section>
+
+    <!-- Phase 1 -->
+    <section class="phase phase-cyan" id="phase-1">
+      <div class="phase-card">
+        <div class="phase-head">
+          <span class="phase-num">01</span>
+          <h2 class="phase-title">Foundation · Hiểu Claude</h2>
+          <a class="phase-deep" href="https://github.com/duonglkh/claude-roadmap-vn/tree/main/phase-1-foundation" target="_blank" rel="noopener">VN note ↗</a>
+        </div>
+        <p class="phase-tagline">LLM là gì, family Claude (Opus / Sonnet / Haiku), token, pricing, context window.</p>
+        <ul class="topics">
+          <li><a class="topic" href="https://docs.claude.com/en/docs/intro" target="_blank" rel="noopener"><span>Anthropic intro</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/about-claude/models" target="_blank" rel="noopener"><span>Model overview</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/token-counting" target="_blank" rel="noopener"><span>Token counting</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://www.anthropic.com/pricing" target="_blank" rel="noopener"><span>Pricing</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://console.anthropic.com" target="_blank" rel="noopener"><span>API console</span><span class="arrow">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Phase 2 -->
+    <section class="phase phase-purple" id="phase-2">
+      <div class="phase-card">
+        <div class="phase-head">
+          <span class="phase-num">02</span>
+          <h2 class="phase-title">Prompt Engineering</h2>
+          <a class="phase-deep" href="https://github.com/duonglkh/claude-roadmap-vn/tree/main/phase-2-prompting" target="_blank" rel="noopener">VN note ↗</a>
+        </div>
+        <p class="phase-tagline">System prompt, XML tags, few-shot, chain-of-thought, prompt caching.</p>
+        <ul class="topics">
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener"><span>Prompt overview</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/system-prompts" target="_blank" rel="noopener"><span>System prompts</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags" target="_blank" rel="noopener"><span>XML tags</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/chain-of-thought" target="_blank" rel="noopener"><span>Chain of thought</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener"><span>Prompt caching</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/extended-thinking" target="_blank" rel="noopener"><span>Extended thinking</span><span class="arrow">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Phase 3 -->
+    <section class="phase phase-yellow" id="phase-3">
+      <div class="phase-card">
+        <div class="phase-head">
+          <span class="phase-num">03</span>
+          <h2 class="phase-title">Anthropic API</h2>
+          <a class="phase-deep" href="https://github.com/duonglkh/claude-roadmap-vn/tree/main/phase-3-api" target="_blank" rel="noopener">VN note ↗</a>
+        </div>
+        <p class="phase-tagline">Messages API, streaming, vision, files, batch — tích hợp Claude vào sản phẩm.</p>
+        <ul class="topics">
+          <li><a class="topic" href="https://docs.claude.com/en/api/getting-started" target="_blank" rel="noopener"><span>Getting started</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/api/messages" target="_blank" rel="noopener"><span>Messages API</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/api/messages-streaming" target="_blank" rel="noopener"><span>Streaming</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/vision" target="_blank" rel="noopener"><span>Vision</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/batch-processing" target="_blank" rel="noopener"><span>Batch API</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/citations" target="_blank" rel="noopener"><span>Citations</span><span class="arrow">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Phase 4 -->
+    <section class="phase phase-green" id="phase-4">
+      <div class="phase-card">
+        <div class="phase-head">
+          <span class="phase-num">04</span>
+          <h2 class="phase-title">Tools & Agents</h2>
+          <a class="phase-deep" href="https://github.com/duonglkh/claude-roadmap-vn/tree/main/phase-4-tools-agents" target="_blank" rel="noopener">VN note ↗</a>
+        </div>
+        <p class="phase-tagline">Tool use, computer use, agentic loops — biến chatbot thành agent.</p>
+        <ul class="topics">
+          <li><a class="topic" href="https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview" target="_blank" rel="noopener"><span>Tool use overview</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/agents-and-tools/tool-use/implement-tool-use" target="_blank" rel="noopener"><span>Implement tool use</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/agents-and-tools/computer-use" target="_blank" rel="noopener"><span>Computer use</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener"><span>Effective agents</span><span class="arrow">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Phase 5 -->
+    <section class="phase phase-cyan" id="phase-5">
+      <div class="phase-card">
+        <div class="phase-head">
+          <span class="phase-num">05</span>
+          <h2 class="phase-title">Claude Code CLI</h2>
+          <a class="phase-deep" href="https://github.com/duonglkh/claude-roadmap-vn/tree/main/phase-5-claude-code" target="_blank" rel="noopener">VN note ↗</a>
+        </div>
+        <p class="phase-tagline">Trợ lý code trong terminal — CLAUDE.md, hooks, subagents, skills, MCP.</p>
+        <ul class="topics">
+          <li><a class="topic" href="https://docs.claude.com/en/docs/claude-code/quickstart" target="_blank" rel="noopener"><span>Quickstart</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/claude-code/memory" target="_blank" rel="noopener"><span>CLAUDE.md</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/claude-code/slash-commands" target="_blank" rel="noopener"><span>Slash commands</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/claude-code/hooks" target="_blank" rel="noopener"><span>Hooks</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/claude-code/sub-agents" target="_blank" rel="noopener"><span>Subagents</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/claude-code/skills" target="_blank" rel="noopener"><span>Skills</span><span class="arrow">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Phase 6 -->
+    <section class="phase phase-indigo" id="phase-6">
+      <div class="phase-card">
+        <div class="phase-head">
+          <span class="phase-num">06</span>
+          <h2 class="phase-title">Model Context Protocol</h2>
+          <a class="phase-deep" href="https://github.com/duonglkh/claude-roadmap-vn/tree/main/phase-6-mcp" target="_blank" rel="noopener">VN note ↗</a>
+        </div>
+        <p class="phase-tagline">"USB-C for AI" — chuẩn kết nối LLM với data source &amp; tool external.</p>
+        <ul class="topics">
+          <li><a class="topic" href="https://modelcontextprotocol.io/introduction" target="_blank" rel="noopener"><span>MCP introduction</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://modelcontextprotocol.io/specification" target="_blank" rel="noopener"><span>Specification</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://modelcontextprotocol.io/quickstart/server" target="_blank" rel="noopener"><span>Build server</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener"><span>Reference servers</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/claude-code/mcp" target="_blank" rel="noopener"><span>MCP in Claude Code</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://smithery.ai" target="_blank" rel="noopener"><span>Smithery registry</span><span class="arrow">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Phase 7 -->
+    <section class="phase phase-pink" id="phase-7">
+      <div class="phase-card">
+        <div class="phase-head">
+          <span class="phase-num">07</span>
+          <h2 class="phase-title">Production &amp; Scale</h2>
+          <a class="phase-deep" href="https://github.com/duonglkh/claude-roadmap-vn/tree/main/phase-7-production" target="_blank" rel="noopener">VN note ↗</a>
+        </div>
+        <p class="phase-tagline">Evals, cost optimization, safety guardrails, multi-agent — ship lên prod tử tế.</p>
+        <ul class="topics">
+          <li><a class="topic" href="https://docs.claude.com/en/docs/test-and-evaluate/eval-tool" target="_blank" rel="noopener"><span>Evals</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations" target="_blank" rel="noopener"><span>Reduce hallucinations</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/mitigate-prompt-injection" target="_blank" rel="noopener"><span>Prompt injection</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/docs/build-with-claude/latency" target="_blank" rel="noopener"><span>Reduce latency</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://docs.claude.com/en/api/rate-limits" target="_blank" rel="noopener"><span>Rate limits</span><span class="arrow">↗</span></a></li>
+          <li><a class="topic" href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener"><span>Multi-agent design</span><span class="arrow">↗</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>
+        Living document · curated bởi
+        <a href="https://duonglkh.github.io/" target="_blank" rel="noopener">Hidev</a>
+        · contributions welcome ở
+        <a href="https://github.com/duonglkh/claude-roadmap-vn" target="_blank" rel="noopener">duonglkh/claude-roadmap-vn</a>
+      </div>
+      <p class="note">
+        Cấu trúc 7-phase phổ biến trong cộng đồng (xem cả <a href="https://github.com/hueanmy/claude-roadmap" target="_blank" rel="noopener">hueanmy/claude-roadmap</a>, MIT). Content trên trang này độc lập, không thay thế cho doc chính thức ở <a href="https://docs.claude.com" target="_blank" rel="noopener">docs.claude.com</a>.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
