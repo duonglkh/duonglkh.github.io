@@ -1,0 +1,10 @@
+title: kmp-template-base
+description: Compose Multiplatform scaffold (Android + iOS) — Koin DI, Ktor, DataStore, theme + navigation skeleton. Clone-and-rename starter, không kèm business logic.
+repoUrl: https://github.com/duonglkh/kmp-template-base
+tech:
+  - kotlin-multiplatform
+  - compose
+  - koin
+  - planned
+featured: true
+order: 1
