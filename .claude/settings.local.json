@@ -28,7 +28,9 @@
       "Bash(LC_ALL=C sed -i '' 's/iGO/KMP Template/g; s/com\\\\.igo\\\\./com.hidev.kmptemplate./g' /Users/duonglkh/Code/duonglkh/kmp-template-base/iosApp/iosApp.xcodeproj/project.pbxproj)",
       "Bash(LC_ALL=C sed -i '' '/pod '\\\\''VietMap'\\\\''/d' /Users/duonglkh/Code/duonglkh/kmp-template-base/iosApp/Podfile)",
       "Bash(LC_ALL=C sed -i '' ' *)",
-      "Bash(chmod +x /Users/duonglkh/Code/duonglkh/connectivity-flow/gradlew)"
+      "Bash(chmod +x /Users/duonglkh/Code/duonglkh/connectivity-flow/gradlew)",
+      "WebFetch(domain:www.youtube.com)",
+      "WebFetch(domain:r.jina.ai)"
     ]
   }
 }
