@@ -13,7 +13,7 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
   </div>
 
   <div class="hero-head">
-    <div class="avatar-wrap">
+    <div class="avatar-shell">
       <svg class="orbit-svg" viewBox="0 0 240 240" aria-hidden="true">
         <defs>
           <path
@@ -38,13 +38,15 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
           </textPath>
         </text>
       </svg>
-      <img
-        src={PERSONAL_INFO.avatarUrl}
-        alt={`${PERSONAL_INFO.name} avatar`}
-        class="avatar"
-        width="72"
-        height="72"
-      />
+      <div class="avatar-wrap">
+        <img
+          src={PERSONAL_INFO.avatarUrl}
+          alt={`${PERSONAL_INFO.name} avatar`}
+          class="avatar"
+          width="72"
+          height="72"
+        />
+      </div>
     </div>
     <h1 class="name">{PERSONAL_INFO.name} <span class="bell">🔔</span></h1>
   </div>
@@ -114,6 +116,19 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
     margin-bottom: 0.9rem;
   }
 
+  /* Shell reserves layout space for the orbit SVG (260px in cosmic, 200 default).
+     Without this, the absolutely-positioned SVG escapes its parent and overlaps
+     siblings (status pill above, name below). */
+  .avatar-shell {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
   .avatar-wrap {
     position: relative;
     flex-shrink: 0;
@@ -132,19 +147,15 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
      spinning slowly. Inner dashed ring + planet dot give depth. */
   .orbit-svg {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    margin-top: -100px;
-    margin-left: -100px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     overflow: visible;
     transform-origin: center;
     animation: orbit-spin 40s linear infinite;
-    transition: animation-duration 300ms ease;
   }
-  .avatar-wrap:hover .orbit-svg {
+  .avatar-shell:hover .orbit-svg {
     animation-duration: 12s;
   }
 
@@ -179,6 +190,7 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
 
   @media (prefers-reduced-motion: reduce) {
     .avatar-wrap,
+    .avatar-shell,
     .orbit-svg { animation: none; }
   }
 
@@ -313,11 +325,9 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
     height: 92px;
   }
 
-  :global(:root[data-layout='cosmic']) .orbit-svg {
+  :global(:root[data-layout='cosmic']) .avatar-shell {
     width: 260px;
     height: 260px;
-    margin-top: -130px;
-    margin-left: -130px;
   }
   :global(:root[data-layout='cosmic']) .orbit-text {
     font-size: 9.5px;
@@ -350,20 +360,16 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
       width: 74px;
       height: 74px;
     }
-    :global(:root[data-layout='cosmic']) .orbit-svg {
+    :global(:root[data-layout='cosmic']) .avatar-shell {
       width: 210px;
       height: 210px;
-      margin-top: -105px;
-      margin-left: -105px;
     }
   }
 
   @media (max-width: 520px) {
-    .orbit-svg {
+    .avatar-shell {
       width: 170px;
       height: 170px;
-      margin-top: -85px;
-      margin-left: -85px;
     }
     .orbit-text { font-size: 7.5px; letter-spacing: 0.22em; }
   }
