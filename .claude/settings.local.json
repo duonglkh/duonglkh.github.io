@@ -18,7 +18,17 @@
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
       "Bash(grep -oE '\\\\$ \\\\./mission_0[0-9]\\\\.sh|ARM I+|MISSION  I+|☉|☿|♀|⊕' /Volumes/DATA/Setup/profile/hidev.github.io/dist/index.html)",
-      "Bash(grep -oE '\\\\\\\\$ \\\\\\\\./mission_0[0-9]\\\\\\\\.sh|ARM I+|MISSION  I+|MISSION I|ARM I|☉|☿|♀|⊕|mission_0' /Volumes/DATA/Setup/profile/hidev.github.io/dist/_astro/index.DOZUXqgp.css)"
+      "Bash(grep -oE '\\\\\\\\$ \\\\\\\\./mission_0[0-9]\\\\\\\\.sh|ARM I+|MISSION  I+|MISSION I|ARM I|☉|☿|♀|⊕|mission_0' /Volumes/DATA/Setup/profile/hidev.github.io/dist/_astro/index.DOZUXqgp.css)",
+      "Bash(git commit *)",
+      "Bash(rsync -a --exclude=.git --exclude=.gradle --exclude=build --exclude=.idea --exclude=.kotlin --exclude=.fleet --exclude=Key --exclude=google-services.json --exclude=local.properties --exclude=*.iml --exclude=.DS_Store --exclude=.claude --exclude=release --exclude=captures /Volumes/DATA/Setup/Project/Android/2025/project/iGo/ /Users/duonglkh/Code/duonglkh/kmp-template-base/)",
+      "Bash(sed -i '' -E 's/^igo-shared/kmptemplate-shared/; s/^igo-kotlinMultiplatform/kmptemplate-kotlinMultiplatform/; s/^igo-androidApp/kmptemplate-androidApp/' /Users/duonglkh/Code/duonglkh/kmp-template-base/gradle/libs.versions.toml)",
+      "Bash(sed -i '' '/^vietmap-/d; /^kmp-notifier/d' /Users/duonglkh/Code/duonglkh/kmp-template-base/gradle/libs.versions.toml)",
+      "Bash(grep -nE '^import \\(business\\\\.|presentation\\\\.ui|presentation\\\\.token|common\\\\.\\(Location|Camera|Gallery|MapComponent|Dialer\\)\\)' /Users/duonglkh/Code/duonglkh/kmp-template-base/shared/src/commonMain/kotlin/__TRACKED_VAR__)",
+      "Bash(LC_ALL=C sed -i '' 's/iGO - Sàn đặt xe/KMP Template/g' /Users/duonglkh/Code/duonglkh/kmp-template-base/iosApp/iosApp.xcodeproj/project.pbxproj)",
+      "Bash(LC_ALL=C sed -i '' 's/iGO/KMP Template/g; s/com\\\\.igo\\\\./com.hidev.kmptemplate./g' /Users/duonglkh/Code/duonglkh/kmp-template-base/iosApp/iosApp.xcodeproj/project.pbxproj)",
+      "Bash(LC_ALL=C sed -i '' '/pod '\\\\''VietMap'\\\\''/d' /Users/duonglkh/Code/duonglkh/kmp-template-base/iosApp/Podfile)",
+      "Bash(LC_ALL=C sed -i '' ' *)",
+      "Bash(chmod +x /Users/duonglkh/Code/duonglkh/connectivity-flow/gradlew)"
     ]
   }
 }
