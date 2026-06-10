@@ -15,7 +15,7 @@ const shadow = (count: number, seed: number) => {
   for (let i = 0; i < count; i++) {
     const x = (rand() * 100).toFixed(2);
     const y = (rand() * 100).toFixed(2);
-    parts.push(`${x}vw ${y}vh #fff`);
+    parts.push(`${x}vw ${y}vh var(--star-color, #fff)`);
   }
   return parts.join(', ');
 };
@@ -130,7 +130,10 @@ const large = shadow(18, 113);
     .shooting-star { display: none; }
   }
 
-  :global(:root[data-theme='light']) .starfield {
+  /* Hide starfield when --star-color is transparent (cyberpunk dark / light themes). */
+  /* CSS can't introspect var values, so we use explicit theme selectors. */
+  :global(:root[data-theme='cyberpunk']) .starfield,
+  :global(:root[data-mode='light']) .starfield {
     display: none;
   }
 </style>

@@ -1,92 +1,277 @@
-:root,
-:root[data-theme='dark'] {
-  /* surfaces — deep space */
-  --bg: #02030a;
-  --bg-raised: #0a0d1d;
-  --bg-elevated: #151a2e;
-  --card-tint: rgba(10, 13, 29, 0.55);
+/* ============================================================
+   THEME ARCHITECTURE
+   Two independent attributes on <html>:
+   - data-theme: space | galaxy | solar | cyberpunk
+   - data-mode:  dark  | light
+   Default = space dark.
 
-  /* borders */
-  --border: #1f2940;
-  --border-strong: #3a4669;
+   Shared tokens (typography, radius) live in :root.
+   Color tokens live per theme+mode pair so any combo composes.
+   ============================================================ */
 
-  /* text */
-  --fg: #e9eaf5;
-  --fg-dim: #98a2c3;
-  --fg-muted: #6b7799;
-
-  /* accents (brand) — galaxy */
-  --accent: #5eead4;
-  --accent-hover: #99f6e4;
-  --accent-2: #a78bfa;
-  --accent-3: #f472b6;
-  --accent-soft: rgba(94, 234, 212, 0.1);
-  --gradient-accent: linear-gradient(
-    100deg,
-    #5eead4 0%,
-    #818cf8 28%,
-    #a78bfa 52%,
-    #f472b6 78%,
-    #5eead4 100%
-  );
-
-  /* nebula clouds — full immersive */
-  --orb-1: rgba(124, 58, 237, 0.45);
-  --orb-2: rgba(56, 189, 248, 0.28);
-  --orb-3: rgba(236, 72, 153, 0.22);
-
-  /* drop dot grid — stars do the job */
-  --grid-dot: transparent;
-
-  /* avatar saturn ring */
-  --avatar-glow-1: rgba(167, 139, 250, 0.35);
-  --avatar-glow-2: rgba(94, 234, 212, 0.18);
-  --ring-color: rgba(167, 139, 250, 0.55);
-  --ring-color-soft: rgba(94, 234, 212, 0.35);
-
-  /* scheme hint for native UI */
-  color-scheme: dark;
-
-  /* tokens */
+:root {
   --radius: 10px;
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
-:root[data-theme='light'] {
-  /* Claude-inspired cream / paper */
-  --bg: #faf9f5;
+/* -------- SPACE · DARK (default) -------- */
+:root,
+:root[data-theme='space'][data-mode='dark'] {
+  --bg: #02030a;
+  --bg-raised: #0a0d1d;
+  --bg-elevated: #151a2e;
+  --card-tint: rgba(10, 13, 29, 0.55);
+  --border: #1f2940;
+  --border-strong: #3a4669;
+  --fg: #e9eaf5;
+  --fg-dim: #98a2c3;
+  --fg-muted: #6b7799;
+  --accent: #5eead4;
+  --accent-hover: #99f6e4;
+  --accent-2: #a78bfa;
+  --accent-3: #f472b6;
+  --accent-soft: rgba(94, 234, 212, 0.1);
+  --gradient-accent: linear-gradient(100deg, #5eead4 0%, #818cf8 28%, #a78bfa 52%, #f472b6 78%, #5eead4 100%);
+  --orb-1: rgba(124, 58, 237, 0.45);
+  --orb-2: rgba(56, 189, 248, 0.28);
+  --orb-3: rgba(236, 72, 153, 0.22);
+  --grid-dot: transparent;
+  --avatar-glow-1: rgba(167, 139, 250, 0.35);
+  --avatar-glow-2: rgba(94, 234, 212, 0.18);
+  --ring-color: rgba(167, 139, 250, 0.55);
+  --ring-color-soft: rgba(94, 234, 212, 0.35);
+  --star-color: #ffffff;
+  --scanline-color: transparent;
+  --hud-grid: transparent;
+  color-scheme: dark;
+}
+
+/* -------- SPACE · LIGHT -------- */
+:root[data-theme='space'][data-mode='light'] {
+  --bg: #f5f7ff;
   --bg-raised: #ffffff;
-  --bg-elevated: #f3f1ea;
-  --card-tint: rgba(255, 255, 255, 0.75);
+  --bg-elevated: #ebeefc;
+  --card-tint: rgba(255, 255, 255, 0.7);
+  --border: #d9deef;
+  --border-strong: #aeb6d2;
+  --fg: #131626;
+  --fg-dim: #4a5176;
+  --fg-muted: #7a83a8;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-2: #a78bfa;
+  --accent-3: #ec4899;
+  --accent-soft: rgba(99, 102, 241, 0.08);
+  --gradient-accent: linear-gradient(100deg, #6366f1 0%, #a78bfa 50%, #ec4899 100%);
+  --orb-1: rgba(167, 139, 250, 0.12);
+  --orb-2: rgba(99, 102, 241, 0.08);
+  --orb-3: rgba(236, 72, 153, 0.06);
+  --grid-dot: rgba(99, 102, 241, 0.05);
+  --avatar-glow-1: rgba(99, 102, 241, 0.12);
+  --avatar-glow-2: rgba(167, 139, 250, 0.06);
+  --ring-color: rgba(99, 102, 241, 0.4);
+  --ring-color-soft: rgba(167, 139, 250, 0.25);
+  --star-color: rgba(99, 102, 241, 0.5);
+  --scanline-color: transparent;
+  --hud-grid: transparent;
+  color-scheme: light;
+}
 
-  --border: #e8e4d8;
-  --border-strong: #c9c3b3;
+/* -------- GALAXY · DARK -------- */
+:root[data-theme='galaxy'][data-mode='dark'] {
+  --bg: #0a0512;
+  --bg-raised: #14082a;
+  --bg-elevated: #1f0e3d;
+  --card-tint: rgba(20, 8, 42, 0.55);
+  --border: #2a1450;
+  --border-strong: #4a2680;
+  --fg: #f3e8ff;
+  --fg-dim: #c4a3e6;
+  --fg-muted: #8a6ab3;
+  --accent: #ec4899;
+  --accent-hover: #f472b6;
+  --accent-2: #c026d3;
+  --accent-3: #f0abfc;
+  --accent-soft: rgba(236, 72, 153, 0.12);
+  --gradient-accent: linear-gradient(100deg, #ec4899 0%, #c026d3 30%, #a855f7 60%, #ec4899 100%);
+  --orb-1: rgba(192, 38, 211, 0.55);
+  --orb-2: rgba(236, 72, 153, 0.45);
+  --orb-3: rgba(168, 85, 247, 0.35);
+  --grid-dot: transparent;
+  --avatar-glow-1: rgba(236, 72, 153, 0.45);
+  --avatar-glow-2: rgba(192, 38, 211, 0.25);
+  --ring-color: rgba(236, 72, 153, 0.6);
+  --ring-color-soft: rgba(240, 171, 252, 0.4);
+  --star-color: #fde2ff;
+  --scanline-color: transparent;
+  --hud-grid: transparent;
+  color-scheme: dark;
+}
 
-  --fg: #1a1915;
-  --fg-dim: #4a4842;
-  --fg-muted: #7a7770;
+/* -------- GALAXY · LIGHT -------- */
+:root[data-theme='galaxy'][data-mode='light'] {
+  --bg: #fdf4ff;
+  --bg-raised: #ffffff;
+  --bg-elevated: #f9e8ff;
+  --card-tint: rgba(255, 255, 255, 0.7);
+  --border: #f0d4f7;
+  --border-strong: #d8a3e8;
+  --fg: #2a0f3a;
+  --fg-dim: #5d3273;
+  --fg-muted: #8e5fa3;
+  --accent: #c026d3;
+  --accent-hover: #a21caf;
+  --accent-2: #ec4899;
+  --accent-3: #a855f7;
+  --accent-soft: rgba(192, 38, 211, 0.08);
+  --gradient-accent: linear-gradient(100deg, #c026d3 0%, #ec4899 50%, #a855f7 100%);
+  --orb-1: rgba(236, 72, 153, 0.12);
+  --orb-2: rgba(192, 38, 211, 0.08);
+  --orb-3: rgba(168, 85, 247, 0.06);
+  --grid-dot: rgba(192, 38, 211, 0.05);
+  --avatar-glow-1: rgba(192, 38, 211, 0.15);
+  --avatar-glow-2: rgba(236, 72, 153, 0.08);
+  --ring-color: rgba(192, 38, 211, 0.45);
+  --ring-color-soft: rgba(236, 72, 153, 0.3);
+  --star-color: rgba(192, 38, 211, 0.5);
+  --scanline-color: transparent;
+  --hud-grid: transparent;
+  color-scheme: light;
+}
 
-  /* Claude coral — solid, no gradient */
-  --accent: #cc785c;
-  --accent-hover: #b8633f;
-  --accent-2: #cc785c;
-  --accent-3: #cc785c;
-  --accent-soft: rgba(204, 120, 92, 0.08);
-  --gradient-accent: #cc785c;
+/* -------- SOLAR SYSTEM · DARK -------- */
+:root[data-theme='solar'][data-mode='dark'] {
+  --bg: #08060a;
+  --bg-raised: #1a1208;
+  --bg-elevated: #28190c;
+  --card-tint: rgba(26, 18, 8, 0.55);
+  --border: #3a2a14;
+  --border-strong: #604527;
+  --fg: #fef3c7;
+  --fg-dim: #d4b884;
+  --fg-muted: #a08862;
+  --accent: #fb923c;
+  --accent-hover: #fdba74;
+  --accent-2: #fbbf24;
+  --accent-3: #f97316;
+  --accent-soft: rgba(251, 146, 60, 0.12);
+  --gradient-accent: linear-gradient(100deg, #fbbf24 0%, #fb923c 50%, #f97316 100%);
+  --orb-1: rgba(251, 191, 36, 0.35);
+  --orb-2: rgba(251, 146, 60, 0.25);
+  --orb-3: rgba(249, 115, 22, 0.18);
+  --grid-dot: transparent;
+  --avatar-glow-1: rgba(251, 191, 36, 0.4);
+  --avatar-glow-2: rgba(251, 146, 60, 0.25);
+  --ring-color: rgba(251, 191, 36, 0.55);
+  --ring-color-soft: rgba(253, 186, 116, 0.35);
+  --star-color: rgba(254, 243, 199, 0.85);
+  --scanline-color: transparent;
+  --hud-grid: transparent;
+  color-scheme: dark;
+}
 
-  /* Drop ambient orbs and dot grid for minimal feel */
+/* -------- SOLAR SYSTEM · LIGHT -------- */
+:root[data-theme='solar'][data-mode='light'] {
+  --bg: #fffbf0;
+  --bg-raised: #ffffff;
+  --bg-elevated: #fef3d6;
+  --card-tint: rgba(255, 255, 255, 0.7);
+  --border: #f5e3b3;
+  --border-strong: #d4b884;
+  --fg: #2a1a08;
+  --fg-dim: #6b4a20;
+  --fg-muted: #a08862;
+  --accent: #c2410c;
+  --accent-hover: #9a3412;
+  --accent-2: #ea580c;
+  --accent-3: #d97706;
+  --accent-soft: rgba(194, 65, 12, 0.08);
+  --gradient-accent: linear-gradient(100deg, #c2410c 0%, #ea580c 50%, #d97706 100%);
+  --orb-1: rgba(251, 191, 36, 0.18);
+  --orb-2: rgba(251, 146, 60, 0.12);
+  --orb-3: transparent;
+  --grid-dot: rgba(194, 65, 12, 0.05);
+  --avatar-glow-1: rgba(194, 65, 12, 0.15);
+  --avatar-glow-2: rgba(251, 146, 60, 0.08);
+  --ring-color: rgba(194, 65, 12, 0.4);
+  --ring-color-soft: rgba(251, 146, 60, 0.3);
+  --star-color: rgba(194, 65, 12, 0.4);
+  --scanline-color: transparent;
+  --hud-grid: transparent;
+  color-scheme: light;
+}
+
+/* -------- CYBERPUNK · DARK -------- */
+:root[data-theme='cyberpunk'][data-mode='dark'] {
+  --bg: #06020f;
+  --bg-raised: #100623;
+  --bg-elevated: #1a0936;
+  --card-tint: rgba(16, 6, 35, 0.65);
+  --border: #2a1054;
+  --border-strong: #4a1f8c;
+  --fg: #f0f0ff;
+  --fg-dim: #b0a0d8;
+  --fg-muted: #7868a8;
+  --accent: #00f0ff;
+  --accent-hover: #5cfffe;
+  --accent-2: #ff00ea;
+  --accent-3: #ffff00;
+  --accent-soft: rgba(0, 240, 255, 0.12);
+  --gradient-accent: linear-gradient(100deg, #00f0ff 0%, #ff00ea 100%);
   --orb-1: transparent;
   --orb-2: transparent;
   --orb-3: transparent;
-
   --grid-dot: transparent;
+  --avatar-glow-1: rgba(255, 0, 234, 0.5);
+  --avatar-glow-2: rgba(0, 240, 255, 0.4);
+  --ring-color: rgba(255, 0, 234, 0.7);
+  --ring-color-soft: rgba(0, 240, 255, 0.5);
+  --star-color: transparent;
+  --scanline-color: rgba(0, 240, 255, 0.03);
+  --hud-grid: rgba(255, 0, 234, 0.06);
+  color-scheme: dark;
+}
 
-  --avatar-glow-1: rgba(204, 120, 92, 0.1);
-  --avatar-glow-2: rgba(204, 120, 92, 0.04);
-  --ring-color: transparent;
-  --ring-color-soft: transparent;
+/* -------- CYBERPUNK · LIGHT -------- */
+:root[data-theme='cyberpunk'][data-mode='light'] {
+  --bg: #fafafa;
+  --bg-raised: #ffffff;
+  --bg-elevated: #f5f5fa;
+  --card-tint: rgba(255, 255, 255, 0.75);
+  --border: #d4d4e0;
+  --border-strong: #8e8eae;
+  --fg: #050208;
+  --fg-dim: #3a2854;
+  --fg-muted: #6e5c8a;
+  --accent: #d600cc;
+  --accent-hover: #ff00ea;
+  --accent-2: #0088a8;
+  --accent-3: #c08000;
+  --accent-soft: rgba(214, 0, 204, 0.07);
+  --gradient-accent: linear-gradient(100deg, #d600cc 0%, #0088a8 100%);
+  --orb-1: transparent;
+  --orb-2: transparent;
+  --orb-3: transparent;
+  --grid-dot: transparent;
+  --avatar-glow-1: rgba(214, 0, 204, 0.18);
+  --avatar-glow-2: rgba(0, 136, 168, 0.12);
+  --ring-color: rgba(214, 0, 204, 0.55);
+  --ring-color-soft: rgba(0, 136, 168, 0.4);
+  --star-color: transparent;
+  --scanline-color: transparent;
+  --hud-grid: rgba(214, 0, 204, 0.04);
+  color-scheme: light;
+}
 
+/* -------- Legacy attribute fallbacks (avoid FOUC if old key cached) -------- */
+:root[data-theme='dark']:not([data-mode]) {
+  /* Maps to default space dark — vars inherit from :root */
+}
+:root[data-theme='light']:not([data-mode]) {
+  --bg: #f5f7ff;
+  --fg: #131626;
+  --accent: #6366f1;
   color-scheme: light;
 }
 
@@ -141,10 +326,25 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: -2;
-  background-image: radial-gradient(circle at 1px 1px, var(--grid-dot) 1px, transparent 0);
-  background-size: 28px 28px;
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--grid-dot) 1px, transparent 0),
+    linear-gradient(var(--hud-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hud-grid) 1px, transparent 1px);
+  background-size: 28px 28px, 50px 50px, 50px 50px;
   mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black, transparent 95%);
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black, transparent 95%);
+}
+
+/* Scanline overlay — only visible when --scanline-color is set (cyberpunk dark). */
+html::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: linear-gradient(transparent 50%, var(--scanline-color) 50%);
+  background-size: 100% 3px;
+  mix-blend-mode: overlay;
 }
 
 @media (prefers-reduced-motion: reduce) {
