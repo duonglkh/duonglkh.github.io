@@ -305,8 +305,17 @@ section > h2 {
   max-width: 880px;
 }
 
-/* CSS grid (multi-row) replaces horizontal-scroll carousel */
-:root[data-layout='cosmic'] .grid {
+/* Cosmic keeps the classic horizontal carousel — works better for long
+   lists (Open Source Repos has 13 cards). Grid card width is bumped a bit
+   for cosmic so the "feel" is more spacious. */
+:root[data-layout='cosmic'] .grid > * {
+  flex: 0 0 calc(33.333% - 0.667rem);
+  min-width: 240px;
+}
+
+/* Opt-in: any `.grid--static` becomes a CSS grid that wraps (no scroll).
+   Use for short curated lists like Anthropic Courses (≤6 items). */
+:root[data-layout='cosmic'] .grid--static {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
@@ -316,8 +325,7 @@ section > h2 {
   margin-inline: 0;
   padding-inline: 0;
 }
-
-:root[data-layout='cosmic'] .grid > * {
+:root[data-layout='cosmic'] .grid--static > * {
   flex: none;
   min-width: 0;
   scroll-snap-align: none;
@@ -368,7 +376,7 @@ section > h2 {
 }
 
 @media (max-width: 640px) {
-  :root[data-layout='cosmic'] .grid {
+  :root[data-layout='cosmic'] .grid--static {
     grid-template-columns: 1fr;
   }
 }

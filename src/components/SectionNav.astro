@@ -1,7 +1,30 @@
 ---
-const sections = [
-  { id: 'learn', label: 'Learn', num: '01' },
-  { id: 'build', label: 'Open Source', num: '02' },
+type SubItem = { id: string; label: string };
+type Section = { id: string; label: string; num: string; children?: SubItem[] };
+
+const sections: Section[] = [
+  {
+    id: 'learn',
+    label: 'Learn',
+    num: '01',
+    children: [
+      { id: 'claude-roadmap', label: 'Claude Roadmap' },
+      { id: 'cca-f', label: 'CCA-F Exam' },
+      { id: 'anthropic-courses', label: 'Anthropic Courses' },
+      { id: 'courses', label: 'Knowledge Base' },
+    ],
+  },
+  {
+    id: 'build',
+    label: 'Open Source',
+    num: '02',
+    children: [
+      { id: 'projects', label: 'Repos' },
+      { id: 'extensions', label: 'AIDLC' },
+      { id: 'token-optimization', label: 'Token Tools' },
+      { id: 'ai-video-generators', label: 'AI Video' },
+    ],
+  },
   { id: 'shop', label: 'WFH Setup', num: '03' },
   { id: 'support', label: 'Support', num: '04' },
 ];
@@ -11,44 +34,82 @@ const sections = [
   <div class="nav-label">On this page</div>
   <ul>
     {sections.map((s) => (
-      <li>
+      <li class={s.children ? 'has-children' : ''}>
         <a href={`#${s.id}`} data-target={s.id}>
           <span class="bar"></span>
           <span class="num">{s.num}</span>
           <span class="text">{s.label}</span>
         </a>
+        {s.children && (
+          <ul class="sub" data-parent={s.id}>
+            {s.children.map((c) => (
+              <li>
+                <a href={`#${c.id}`} data-sub-target={c.id}>
+                  <span class="sub-dot"></span>
+                  <span class="sub-text">{c.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </li>
     ))}
   </ul>
 </nav>
 
 <script>
-  const links = document.querySelectorAll<HTMLAnchorElement>('.section-nav a');
+  const links = document.querySelectorAll<HTMLAnchorElement>('.section-nav a[data-target]');
+  const subLinks = document.querySelectorAll<HTMLAnchorElement>('.section-nav a[data-sub-target]');
+
   const linkByTarget = new Map<string, HTMLAnchorElement>();
   links.forEach((a) => {
     const t = a.dataset.target;
     if (t) linkByTarget.set(t, a);
   });
+  const subByTarget = new Map<string, HTMLAnchorElement>();
+  subLinks.forEach((a) => {
+    const t = a.dataset.subTarget;
+    if (t) subByTarget.set(t, a);
+  });
 
   const targets = Array.from(linkByTarget.keys())
     .map((id) => document.getElementById(id))
     .filter((el): el is HTMLElement => !!el);
+  const subTargets = Array.from(subByTarget.keys())
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => !!el);
 
-  const setActive = (id: string) => {
+  const setActiveSection = (id: string) => {
     links.forEach((a) => a.classList.toggle('active', a.dataset.target === id));
+    document.querySelectorAll<HTMLElement>('.section-nav .sub').forEach((sub) => {
+      sub.classList.toggle('open', sub.dataset.parent === id);
+    });
+  };
+  const setActiveSub = (id: string) => {
+    subLinks.forEach((a) => a.classList.toggle('active', a.dataset.subTarget === id));
   };
 
-  const observer = new IntersectionObserver(
+  const sectionObserver = new IntersectionObserver(
     (entries) => {
       const visible = entries
         .filter((e) => e.isIntersecting)
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      if (visible[0]) setActive(visible[0].target.id);
+      if (visible[0]) setActiveSection(visible[0].target.id);
     },
     { rootMargin: '-30% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
   );
+  const subObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible[0]) setActiveSub(visible[0].target.id);
+    },
+    { rootMargin: '-25% 0px -65% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+  );
 
-  targets.forEach((el) => observer.observe(el));
+  targets.forEach((el) => sectionObserver.observe(el));
+  subTargets.forEach((el) => subObserver.observe(el));
 </script>
 
 <style>
@@ -133,6 +194,58 @@ const sections = [
 
   .section-nav a.active .num {
     color: var(--accent);
+  }
+
+  /* === Sub-nav (children) === */
+  .sub {
+    list-style: none;
+    padding: 0;
+    margin: 0.3rem 0 0.6rem 1.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 250ms ease, opacity 200ms ease;
+  }
+
+  .sub.open {
+    max-height: 240px;
+    opacity: 1;
+  }
+
+  .sub a {
+    grid-template-columns: 4px 1fr;
+    gap: 0.55rem;
+    padding: 0.28rem 1rem 0.28rem 0;
+    font-size: 0.74rem;
+    color: var(--fg-muted);
+  }
+
+  .sub-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .sub-text {
+    transition: color 200ms ease;
+    white-space: nowrap;
+  }
+
+  .sub a:hover .sub-text { color: var(--fg-dim); }
+  .sub a:hover .sub-dot { background: var(--fg-muted); }
+
+  .sub a.active {
+    color: var(--fg);
+  }
+  .sub a.active .sub-text { color: var(--accent); }
+  .sub a.active .sub-dot {
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
   }
 
   @media (max-width: 1180px) {

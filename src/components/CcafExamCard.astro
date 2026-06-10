@@ -35,110 +35,90 @@ const EXAM = {
   .exam-card {
     display: block;
     background: linear-gradient(180deg, var(--bg-raised), var(--card-tint));
-    border: 1px solid rgba(167, 139, 250, 0.35);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent-2);
     border-radius: var(--radius);
-    padding: 1.5rem 1.6rem;
+    padding: 1rem 1.15rem;
     color: inherit;
-    transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+    transition: border-color 200ms ease, transform 200ms ease;
     position: relative;
-    overflow: hidden;
-  }
-
-  .exam-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle 280px at 90% 10%, rgba(167, 139, 250, 0.18), transparent 70%),
-      radial-gradient(circle 200px at 15% 95%, rgba(94, 234, 212, 0.12), transparent 70%);
-    pointer-events: none;
   }
 
   .exam-card:hover {
-    border-color: rgba(244, 114, 182, 0.55);
-    transform: translateY(-2px);
-    box-shadow:
-      0 0 0 1px rgba(244, 114, 182, 0.18),
-      0 12px 40px rgba(167, 139, 250, 0.12);
+    border-color: var(--accent-2);
+    border-left-color: var(--accent-3);
+    transform: translateY(-1px);
   }
 
   .exam-head {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.85rem;
-    position: relative;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
   }
 
   .badge {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--accent-3);
-    border: 1px solid var(--accent-3);
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 1.5px;
+    font-size: 0.6rem;
+    color: var(--accent-2);
+    border: 1px solid var(--accent-2);
+    padding: 2px 8px;
+    border-radius: 12px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
   }
 
   .code {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--fg-muted);
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
   }
 
   .title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin: 0 0 0.5rem;
-    position: relative;
-    background: linear-gradient(135deg, #5eead4 0%, #a78bfa 50%, #f472b6 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 0.35rem;
+    color: var(--fg);
   }
 
   .tagline {
     color: var(--fg-dim);
-    font-size: 0.92rem;
-    margin: 0 0 1.2rem;
-    position: relative;
+    font-size: 0.82rem;
+    margin: 0 0 0.85rem;
   }
 
   .meta {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.6rem;
-    margin: 0 0 1.3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 0.9rem;
     padding: 0;
-    position: relative;
   }
 
   .meta-row {
     display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    padding: 0.55rem 0.7rem;
-    background: rgba(2, 3, 10, 0.4);
+    align-items: baseline;
+    gap: 0.3rem;
+    padding: 0.25rem 0.55rem;
+    background: rgba(2, 3, 10, 0.45);
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 4px;
   }
 
   .meta-row dt {
     font-family: var(--font-mono);
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     color: var(--fg-muted);
     margin: 0;
   }
 
   .meta-row dd {
     color: var(--fg);
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     font-weight: 500;
     margin: 0;
   }
@@ -146,17 +126,7 @@ const EXAM = {
   .cta {
     display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: var(--accent);
-    position: relative;
-  }
-
-  @media (max-width: 520px) {
-    .meta {
-      grid-template-columns: 1fr;
-    }
-    .title {
-      font-size: 1.15rem;
-    }
   }
 </style>
