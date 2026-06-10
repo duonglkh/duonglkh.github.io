@@ -1,7 +1,7 @@
 ---
 import { PERSONAL_INFO, SOCIAL_LINKS } from '../config';
 
-const ORBIT_TEXT = 'HIDEV · HUNG DUONG · HÀ NỘI · BUILDS WITH AI · SINCE 2014 · ';
+const ORBIT_TEXT = 'DUONGHIDEV · HÀ NỘI · BUILDS WITH AI · SINCE 2014 · ';
 // Repeat so the text loop fills the full circumference at the chosen font-size
 const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
 ---
@@ -48,7 +48,7 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
         />
       </div>
     </div>
-    <h1 class="name">{PERSONAL_INFO.name} <span class="bell">🔔</span></h1>
+    <h1 class="name">{PERSONAL_INFO.name} <span class="rocket">🚀</span></h1>
   </div>
 
   <p class="role">
@@ -227,26 +227,29 @@ const orbitLoop = `${ORBIT_TEXT} ${ORBIT_TEXT}`;
     .name { animation: none; }
   }
 
-  .bell {
+  .rocket {
     display: inline-block;
-    color: #ffd166;
-    -webkit-text-fill-color: #ffd166;
+    -webkit-text-fill-color: initial;
     background: none;
     -webkit-background-clip: initial;
     background-clip: initial;
     font-size: 0.65em;
-    margin-left: 0.2em;
-    transform-origin: top center;
-    animation: bell-ring 3s ease-in-out infinite;
+    margin-left: 0.25em;
+    transform-origin: bottom center;
+    animation: rocket-launch 3.5s ease-in-out infinite;
   }
 
-  @keyframes bell-ring {
-    0%, 70%, 100% { transform: rotate(0deg); }
-    75% { transform: rotate(14deg); }
-    80% { transform: rotate(-12deg); }
-    85% { transform: rotate(8deg); }
-    90% { transform: rotate(-6deg); }
-    95% { transform: rotate(0deg); }
+  @keyframes rocket-launch {
+    0%, 60%, 100% { transform: translateY(0) rotate(-45deg); }
+    70% { transform: translateY(-3px) rotate(-42deg); }
+    75% { transform: translateY(-8px) rotate(-40deg); }
+    80% { transform: translateY(-3px) rotate(-44deg); }
+    85% { transform: translateY(0) rotate(-46deg); }
+    90% { transform: translateY(-2px) rotate(-45deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rocket { animation: none; transform: rotate(-45deg); }
   }
 
   .role {
