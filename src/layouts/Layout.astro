@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import ThemePicker from '../components/ThemePicker.astro';
-import LayoutToggle from '../components/LayoutToggle.astro';
 import Starfield from '../components/Starfield.astro';
 import { SITE_CONFIG } from '../config';
 
@@ -17,7 +16,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" data-theme="space" data-mode="dark" data-layout="cosmic">
+<html lang="en" data-theme="space" data-mode="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,10 +52,6 @@ const {
           const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
           const mode = storedMode || (prefersLight ? 'light' : 'dark');
           document.documentElement.setAttribute('data-mode', mode);
-
-          const storedLayout = localStorage.getItem('layout');
-          const layout = storedLayout || 'cosmic';
-          document.documentElement.setAttribute('data-layout', layout);
         } catch (e) {
           /* localStorage blocked — leave defaults */
         }
@@ -66,7 +61,6 @@ const {
   <body>
     <Starfield />
     <ThemePicker />
-    <LayoutToggle />
     <slot />
   </body>
 </html>

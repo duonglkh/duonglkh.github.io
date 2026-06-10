@@ -13,7 +13,12 @@
       "Read(//Volumes/DATA/CEM/**)",
       "Read(//Users/duonglkh/.ssh/**)",
       "Bash(ssh-add -l)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(grep -oE '\\\\$ \\\\./mission_0[0-9]\\\\.sh|ARM I+|MISSION  I+|☉|☿|♀|⊕' /Volumes/DATA/Setup/profile/hidev.github.io/dist/index.html)",
+      "Bash(grep -oE '\\\\\\\\$ \\\\\\\\./mission_0[0-9]\\\\\\\\.sh|ARM I+|MISSION  I+|MISSION I|ARM I|☉|☿|♀|⊕|mission_0' /Volumes/DATA/Setup/profile/hidev.github.io/dist/_astro/index.DOZUXqgp.css)"
     ]
   }
 }

@@ -252,14 +252,15 @@ const shorts = (await getCollection('shorts')).sort(
   #support > section { margin-bottom: 0; }
 
   /* ============================================================
-     COSMIC LAYOUT — group heads as centered "[ I ] MISSION" labels
+     BASE theme-bound layout (applies to every theme: centered group head,
+     replaced numerals via ::after, narrower divider).
      ============================================================ */
 
-  :root[data-layout='cosmic'] .section-group {
+  :root[data-theme] .section-group {
     margin-bottom: 5.5rem;
   }
 
-  :root[data-layout='cosmic'] .group-head {
+  :root[data-theme] .group-head {
     flex-direction: column;
     align-items: center;
     gap: 0.65rem;
@@ -268,18 +269,17 @@ const shorts = (await getCollection('shorts')).sort(
     padding-top: 1rem;
   }
 
-  :root[data-layout='cosmic'] .group-num {
+  :root[data-theme] .group-num {
     font-family: var(--font-mono);
     font-size: 0.72rem;
     letter-spacing: 0.25em;
     color: var(--accent);
     opacity: 0.85;
     text-transform: uppercase;
+    visibility: hidden;
+    position: relative;
   }
-
-  /* Replace ① ② ③ ④ with [ I ] [ II ] [ III ] [ IV ] */
-  :root[data-layout='cosmic'] .group-num { visibility: hidden; position: relative; }
-  :root[data-layout='cosmic'] .group-num::after {
+  :root[data-theme] .group-num::after {
     visibility: visible;
     position: absolute;
     left: 50%;
@@ -287,20 +287,102 @@ const shorts = (await getCollection('shorts')).sort(
     transform: translate(-50%, -50%);
     white-space: nowrap;
   }
-  :root[data-layout='cosmic'] #learn .group-num::after { content: '[ MISSION  I ]'; }
-  :root[data-layout='cosmic'] #build .group-num::after { content: '[ MISSION  II ]'; }
-  :root[data-layout='cosmic'] #shop .group-num::after { content: '[ MISSION  III ]'; }
-  :root[data-layout='cosmic'] #support .group-num::after { content: '[ MISSION  IV ]'; }
 
-  :root[data-layout='cosmic'] .group-title {
+  :root[data-theme] .group-title {
     font-size: 1.65rem;
   }
 
-  :root[data-layout='cosmic'] .group-rule {
+  :root[data-theme] .group-rule {
     flex: none;
     height: 1px;
     width: 100%;
     max-width: 380px;
     margin: 0.35rem auto 0;
+  }
+
+  /* ----- SPACE: "[ MISSION I ]" mono brackets ----- */
+  :root[data-theme='space'] #learn .group-num::after { content: '[ MISSION  I ]'; }
+  :root[data-theme='space'] #build .group-num::after { content: '[ MISSION  II ]'; }
+  :root[data-theme='space'] #shop .group-num::after { content: '[ MISSION  III ]'; }
+  :root[data-theme='space'] #support .group-num::after { content: '[ MISSION  IV ]'; }
+
+  /* ----- GALAXY: italic serif roman numerals with arm prefix ----- */
+  :root[data-theme='galaxy'] .group-num {
+    font-family: var(--font-sans);
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    color: var(--accent-3);
+    text-transform: none;
+  }
+  :root[data-theme='galaxy'] #learn .group-num::after { content: '· ARM I ·'; }
+  :root[data-theme='galaxy'] #build .group-num::after { content: '· ARM II ·'; }
+  :root[data-theme='galaxy'] #shop .group-num::after { content: '· ARM III ·'; }
+  :root[data-theme='galaxy'] #support .group-num::after { content: '· ARM IV ·'; }
+  :root[data-theme='galaxy'] .group-title {
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* ----- SOLAR: planet glyphs (Sun, Mercury, Venus, Earth) ----- */
+  :root[data-theme='solar'] .group-num {
+    font-family: var(--font-sans);
+    font-size: 1.9rem;
+    letter-spacing: 0;
+    color: var(--accent-2);
+    text-transform: none;
+    line-height: 1;
+  }
+  :root[data-theme='solar'] #learn .group-num::after { content: '☉'; }
+  :root[data-theme='solar'] #build .group-num::after { content: '☿'; }
+  :root[data-theme='solar'] #shop .group-num::after { content: '♀'; }
+  :root[data-theme='solar'] #support .group-num::after { content: '⊕'; }
+  :root[data-theme='solar'] .group-rule {
+    background: none;
+    border-top: 1px dashed var(--accent-2);
+    opacity: 0.4;
+    animation: none;
+  }
+
+  /* ----- CYBERPUNK: row layout, mono prompt prefix, dashed border ----- */
+  :root[data-theme='cyberpunk'] .group-head {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 0.85rem;
+    text-align: left;
+    padding: 0.4rem 0 0.55rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed var(--accent-2);
+  }
+  :root[data-theme='cyberpunk'] .group-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--accent-2);
+    text-transform: lowercase;
+    flex-shrink: 0;
+  }
+  :root[data-theme='cyberpunk'] .group-num::after {
+    position: static;
+    transform: none;
+    left: auto;
+    top: auto;
+  }
+  :root[data-theme='cyberpunk'] #learn .group-num::after { content: '$ ./mission_01.sh'; }
+  :root[data-theme='cyberpunk'] #build .group-num::after { content: '$ ./mission_02.sh'; }
+  :root[data-theme='cyberpunk'] #shop .group-num::after { content: '$ ./mission_03.sh'; }
+  :root[data-theme='cyberpunk'] #support .group-num::after { content: '$ ./mission_04.sh'; }
+  :root[data-theme='cyberpunk'] .group-title {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: none;
+    color: var(--fg);
+    -webkit-text-fill-color: var(--fg);
+  }
+  :root[data-theme='cyberpunk'] .group-rule {
+    display: none;
   }
 </style>
