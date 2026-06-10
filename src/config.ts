@@ -23,5 +23,5 @@ export const SOCIAL_LINKS = {
 export const SUPPORT_LINKS = {
   githubSponsors: 'https://github.com/sponsors/duonglkh',
   momoQR: '/momo-qr.jpg',
-  vietQR: '/vietqr.jpg',
+  vietQR: '/vietqr.png',
 };
