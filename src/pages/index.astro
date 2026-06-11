@@ -5,6 +5,7 @@ import Hero from '../components/Hero.astro';
 import ClaudeRoadmap from '../components/ClaudeRoadmap.astro';
 import CcafExamCard from '../components/CcafExamCard.astro';
 import AnthropicCourses from '../components/AnthropicCourses.astro';
+import GithubStats from '../components/GithubStats.astro';
 import SectionNav from '../components/SectionNav.astro';
 import ExtensionCard from '../components/ExtensionCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -81,6 +82,11 @@ const shorts = (await getCollection('shorts')).sort(
         <h2 class="group-title">Open Source</h2>
         <span class="group-rule"></span>
       </div>
+
+      <section id="github-presence">
+        <h2>GitHub Presence</h2>
+        <GithubStats />
+      </section>
 
       {
         projects.length > 0 && (
